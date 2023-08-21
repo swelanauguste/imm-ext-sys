@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+{% block head_title %}
+{{object}}
+{% endblock head_title %}
+
+{% block content %}
+<div class="p-lg-5" style="font-size: larger;">
+    <div class="col-lg-8 mx-auto">
+        <h1>{{object|capfirst}}</h1>
+        <h3>{{object.address_in_st_lucia}}</h3>
+        <hr>
+        <div class="small text-muted text-end">
+            <p>Updated at {{object.updated_at}}</p>
+        </div>
+        <hr>
+        <div class="text-center m-5">
+            {% if object.img %}
+            <img src="{{object.img.url}}" width="150" height="150" alt="{{object.img.url}}" srcset="">
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-lg-5 mx-auto p-5 me-lg-2">
+                <div>
+                    <span class="text-muted">Date:</span>
+                    <span>{{object.created_at}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Place of birth: </span>
+                    <span>{{object.pob}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Date of birth:</span>
+                    <span>{{object.dob}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Nationality: </span>
+                    <span>{{object.nationality}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Foreign Address:</span>
+                    <span>{{object.foreign_address}},
+                        {{object.foreign_address1}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Phone: </span>
+                    <span>{{object.phone}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Email:</span>
+                    <span>{{object.email}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Occupation: </span>
+                    <span>{{object.occu}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Marital status: </span>
+                    <span>{{object.marital_status}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Passport number:</span>
+                    <span>{{object.ppn}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Passport expires: </span>
+                    <span>{{object.pp_exp}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Place issued</span>
+                    <span>{{object.pp_issue_place}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Date issued: </span>
+                    <span>{{object.pp_issue_date}}</span>
+                </div>
+                <br>
+            </div>
+            <div class="col-lg-5 mx-auto p-5 ms-lg-2">
+                <div>
+                    <span class="text-muted">Arrival date:</span>
+                    <span>{{object.arrival_date}}</span>
+                </div>
+                <br>
+
+                <div>
+                    <span class="text-muted">Arrival place: </span>
+                    <span>{{object.arrival_place}} |
+                        {{object.arrival_place.entry_type}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Arrived from:</span>
+                    <span>{{object.arrived_from}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Arrived via: </span>
+                    <span>{{object.arrived_via}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Purpose of visit: </span>
+                    <span>{{object.pov}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Immigration officer: </span>
+                    <span>{{object.imm_offr}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Time granted from: </span>
+                    <span>{{object.time_granted_from}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Time granted from: </span>
+                    <span>{{object.time_granted_to}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Time granted: </span>
+                    <span>{{object.time_granted}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Local address: </span>
+                    <span>{{object.address_in_st_lucia}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Local phone: </span>
+                    <span>{{object.tel_in_st_lucia}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Means of support: </span>
+                    <span>{{object.means_of_support}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Ticket number: </span>
+                    <span>{{object.ticket_no}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">Valid until: </span>
+                    <span>{{object.validity}}</span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <h1>Remarks</h1>
+                <div class="my-4 text-end">
+                    <!-- Button trigger modal -->
+                    <span type="button"
+                        class=""
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal{{object.pk}}">
+                        <span title="add remarks" class="material-symbols-outlined fs-1">
+                            add_circle
+                        </span>
+                    </span>
+                </div>
+                    {% for ob in object.enquiry_remarks.all %}
+                    <div
+                        class="col-lg mx-auto px-4 py-3 mb-2 bg-secondary bg-opacity-25 rounded-4">
+                        <span>{{ob.remarks}}</span>
+                        <hr>
+                        <div class="text-end">
+                            <span>{{ob.created_by}} <span
+                                    class="small text-muted">{{ob.created_at|naturaltime}}</span></span>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-center">No remarks</p>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade"
+    id="exampleModal{{object.pk}}"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5"
+                    id="exampleModalLabel">{{object}}</h1>
+                <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form action="{% url 'add-enquiry-remark' object.pk %}"
+                method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{remark_form|crispy}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit"
+                        class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

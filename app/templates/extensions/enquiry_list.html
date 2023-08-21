@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+Enquiries
+{% endblock head_title %}
+
+
+{% block content %}
+
+<div class="p-5">
+
+    <div class="row">
+        <div class="col">
+            <div
+                class="h3 border border-3 border-primary rounded-4 p-5 text-primary text-center shadow">
+                <span title="total">Enquiries ({{object_list.count}})</span>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center p-5">
+        <div class="mx-5 pt-2">
+            <a title="add cheque"
+                class="text-decoration-none text-dark"
+                href="{% url 'enquiry-create' %}">
+                <span class="material-symbols-outlined fs-1">
+                    add_circle
+                </span>
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <form action=""
+                method="get">
+                <input type="search"
+                    class="form-control form-control-lg border border-3 rounded-pill"
+                    autofocus="autofocus"
+                    placeholder="Search"
+                    name="enquiries"
+                    id="cheque_id_id">
+            </form>
+        </div>
+        <div class="mx-3 pt-2">
+            <a class="small text-muted"
+                href="/">reset</a>
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+        <table class="mt-3 table table-sm table-hover table-bordered">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Applicant</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">Purpose of visit</th>
+                    <th scope="col">Time granted</th>
+                    <th scope="col">Means of support</th>
+                    <th scope="col">Valid Until</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ob in object_list %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a class="text-dark" href="{{ ob.get_absolute_url }}">{{ob.surname}}, {{ob.christian_names}}</a></td>
+                    <td>Arriving {{ob.arrival_date}}
+                        Via: {{ob.arrival_place}}
+                        ({{ob.arrival_place.entry_type}})
+                        {{od.arrived_from}}
+                        {{ob.arrived_via}}</td>
+                    <td>{{ob.pov}}</td>
+                    <td>{{ob.time_granted}}</td>
+                    <td>{{ob.means_of_support}}</td>
+                    <td>{{ob.ticket_no}} {{ob.validity}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
