@@ -166,6 +166,11 @@ ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
+# ACCOUNT_ADAPTER = "users.adapter.CustomAccountAdapter"
+
+# Allow only specific email domains for signup
+ALLOWED_SIGNUP_DOMAINS = ["govt.lc", "gmail.com"]
+
 
 LOGIN_REDIRECT_URL = "enquiry-list"
 LOGIN_URL = "/accounts/login/"

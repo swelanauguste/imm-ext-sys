@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load humanize %}
+
+{% block head_title %}
+{{object}}
+{% endblock head_title %}
+
+{% block content %}
+<div class="p-lg-5">
+    <div class="col-lg-8 mx-auto">
+        <h1>{{object|capfirst}}</h1>
+        <h3>{{object.address_in_st_lucia}}</h3>
+        <hr>
+        <div class="small text-muted text-end">
+            <p>Updated at {{object.updated_at}}</p>
+        </div>
+        <hr>
+
+        <div class="row"
+            style="font-size: larger;">
+            <div class="col-lg mx-auto">
+                <div>
+                    <span class="text-muted">Date:</span>
+                    <span>{{object.created_at}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">length_of_stay:</span>
+                    <span>{{object.length_of_stay}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">time_granted:</span>
+                    <span>{{object.time_granted}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">time_granted_from:</span>
+                    <span>{{object.time_granted_from}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">time_granted_to:</span>
+                    <span>{{object.time_granted_to}}</span>
+                </div>
+                <br>
+                <div>
+                    <span class="text-muted">granted_by:</span>
+                    <span>{{object.granted_by}}</span>
+                </div>
+                <br>
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg mx-auto">
+                <h1>Payments</h1>
+                <hr>
+                <form action="{% url 'add-enquiry-remark' object.pk %}"
+                    method="post">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{payment_form|crispy}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit"
+                            class="btn btn-lg btn-outline-dark rounded-pill px-5">Save
+                            changes</button>
+                    </div>
+                </form>
+                <br>
+                {% for ob in object.subsequent_permit_payments.all %}
+                <div
+                    class="col-lg mx-auto px-4 py-3 mb-2 bg-secondary bg-opacity-25 rounded-4">
+                    <span>{{ob.payment_amount}}</span>
+                    <hr>
+                    <div class="text-end">
+                        <span>{{ob.created_by}} <span
+                                class="small text-muted">{{ob.created_at|naturaltime}}</span></span>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">No remarks</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade"
+    id="exampleModal{{object.pk}}"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5"
+                    id="exampleModalLabel">{{object}}</h1>
+                <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

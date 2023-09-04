@@ -1,13 +1,21 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Sum
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.views.generic.edit import FormView
 
-from .forms import EnquiryCreateForm, EnquiryRemarksCreateForm
+from .forms import (
+    EnquiryCreateForm,
+    EnquiryPaymentCreateForm,
+    EnquiryRemarksCreateForm,
+    SubsequentPermitCreateForm,
+    SubsequentPermitPaymentCreateForm,
+    SubsequentPermitPaymentUpdateForm,
+)
 from .models import (
     Enquiry,
     EnquiryPayment,
@@ -17,6 +25,75 @@ from .models import (
     SubsequentPermitPayment,
     SubsequentPermitRemarks,
 )
+
+
+class EnquiryPaymentDetailView(LoginRequiredMixin, DetailView):
+    model = EnquiryPayment
+
+
+class EnquiryPaymentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = EnquiryPayment
+    form_class = EnquiryPaymentCreateForm
+
+    def get_initial(self):
+        enquiry_id = self.kwargs["pk"]
+        enquiry = get_object_or_404(Enquiry, pk=enquiry_id)
+        return {"enquiry": enquiry, "payment_amount": enquiry.get_enquiry_cost()}
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
+
+class SubsequentPermitPaymentUpdateView(LoginRequiredMixin, UpdateView):
+    model = SubsequentPermitPayment
+    form_class = SubsequentPermitPaymentUpdateForm
+
+
+# class SubsequentPermitPaymentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+#     model = SubsequentPermitPayment
+#     form_class = SubsequentPermitPaymentCreateForm
+
+#     def get_initial(self):
+
+
+class SubsequentPermitDetailView(LoginRequiredMixin, DetailView):
+    model = SubsequentPermit
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["payment_form"] = SubsequentPermitPaymentUpdateForm(
+            initial={"subsequent_permit": self.object}
+        )
+        # context["subsequent_permit_form"] = SubsequentPermitCreateForm(
+        #     initial={"enquiry": self.object}
+        # )
+        return context
+
+
+class SubsequentPermitCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = SubsequentPermit
+    form_class = SubsequentPermitCreateForm
+
+    def get_initial(self):
+        enquiry_id = self.kwargs["enquiry_id"]
+        enquiry = get_object_or_404(Enquiry, pk=enquiry_id)
+        return {"enquiry": enquiry, "granted_by": self.request.user}
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        form.instance.granted_by = self.request.user
+        return super().form_valid(form)
+
+
+class SubsequentPermitListView(LoginRequiredMixin, ListView):
+    model = SubsequentPermit
+
+
+class SubsequentPermitUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = SubsequentPermit
 
 
 class EnquiryRemarksCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -66,6 +143,9 @@ class EnquiryDetailView(LoginRequiredMixin, DetailView):
         context["remark_form"] = EnquiryRemarksCreateForm(
             initial={"enquiry": self.object}
         )
+        context["subsequent_permit_form"] = SubsequentPermitCreateForm(
+            initial={"enquiry": self.object}
+        )
         return context
 
 
@@ -79,6 +159,8 @@ class EnquiryRemarksCreateFormView(FormView):
         comment.created_by = self.request.user
         comment.updated_by = self.request.user
         comment.save()
+        messages.success(self.request, "Added")
+
         return super().form_valid(form)
 
     def get_success_url(self):

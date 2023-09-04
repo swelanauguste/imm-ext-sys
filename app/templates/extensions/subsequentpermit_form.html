@@ -13,7 +13,8 @@ Form
     <hr>
     <div class="col-lg-6 mx-auto p-5 m-5 rounded-4 shadow">
         <form action=""
-            method="post" enctype="multipart/form-data">
+            method="post"
+            enctype="multipart/form-data">
             {% csrf_token %}
             {{form|crispy}}
             <my-5 class="my-5 d-grid">

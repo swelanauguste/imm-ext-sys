@@ -6,6 +6,7 @@ from .models import (
     EnquiryRemarks,
     IndividualArrears,
     MaritalStatus,
+    PaymentType,
     PortOfEntry,
     SubsequentPermit,
     SubsequentPermitPayment,
@@ -21,3 +22,4 @@ admin.site.register(PortOfEntry)
 admin.site.register(SubsequentPermit)
 admin.site.register(SubsequentPermitPayment)
 admin.site.register(SubsequentPermitRemarks)
+admin.site.register(PaymentType)
