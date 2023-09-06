@@ -250,11 +250,10 @@ class SubsequentPermit(models.Model):
 
     def get_absolute_url(self):
         return reverse("subsequent-permit-detail", kwargs={"pk": self.pk})
-    
+
     def get_subsequent_permit_cost(self):
         cost = Decimal(self.time_granted) * Decimal(200 / 30)
         return f"{cost:.2f}"
-
 
     def __str__(self):
         return f"{self.enquiry.surname} {self.enquiry.christian_names} - {self.enquiry.ppn}"
@@ -302,7 +301,13 @@ class SubsequentPermitPayment(models.Model):
         on_delete=models.PROTECT,
         related_name="subsequent_permit_payments",
     )
-    payment_type = models.CharField(max_length=255, null=True, blank=True)
+    payment_type = models.ForeignKey(
+        PaymentType,
+        on_delete=models.PROTECT,
+        related_name="subsequent_permit_payment_types",
+        null=True,
+        blank=True,
+    )
     payment_amount = models.DecimalField(decimal_places=2, max_digits=10, default=0.0)
     payment_date = models.DateField(blank=True, null=True)
     receipt_no = models.CharField(
@@ -324,6 +329,9 @@ class SubsequentPermitPayment(models.Model):
         null=True,
         blank=True,
     )
+
+    def get_absolute_url(self):
+        return reverse("subsequent-permit-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f"{self.subsequent_permit} - {self.receipt_no}"

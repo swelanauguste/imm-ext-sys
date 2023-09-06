@@ -63,8 +63,11 @@ class SubsequentPermitDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["payment_form"] = SubsequentPermitPaymentUpdateForm(
-            initial={"subsequent_permit": self.object}
+        context["payment_form"] = SubsequentPermitPaymentCreateForm(
+            initial={
+                "subsequent_permit": self.object,
+                "payment_amount": self.object.get_subsequent_permit_cost(),
+            }
         )
         # context["subsequent_permit_form"] = SubsequentPermitCreateForm(
         #     initial={"enquiry": self.object}

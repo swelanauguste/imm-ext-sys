@@ -24,6 +24,12 @@ class SubsequentPermitPaymentCreateForm(forms.ModelForm):
         model = SubsequentPermitPayment
         fields = "__all__"
         exclude = ["created_by", "updated_by"]
+        widgets = {
+            "subsequent_permit": forms.HiddenInput(),
+            # "granted_by": forms.HiddenInput(),
+            "payment_date": forms.TextInput(attrs={"type": "date"}),
+            # "time_granted_to": forms.TextInput(attrs={"type": "date"}),
+        }
 
 
 class SubsequentPermitPaymentUpdateForm(forms.ModelForm):

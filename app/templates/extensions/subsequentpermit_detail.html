@@ -27,11 +27,14 @@
                     <span>{{object.created_at}}</span>
                 </div>
                 <br>
+                
+                {% if object.length_of_stay %}
                 <div>
                     <span class="text-muted">length_of_stay:</span>
                     <span>{{object.length_of_stay}}</span>
                 </div>
                 <br>
+                {% endif %}
                 <div>
                     <span class="text-muted">time_granted:</span>
                     <span>{{object.time_granted}}</span>
@@ -49,7 +52,7 @@
                 <br>
                 <div>
                     <span class="text-muted">granted_by:</span>
-                    <span>{{object.granted_by}}</span>
+                    <span>{{object.granted_by.profile}}</span>
                 </div>
                 <br>
 
