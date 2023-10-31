@@ -3,7 +3,7 @@ from django import forms
 from .models import (
     Enquiry,
     EnquiryPayment,
-    EnquiryRemarks,
+    EnquiryRemark,
     SubsequentPermit,
     SubsequentPermitPayment,
 )
@@ -60,7 +60,7 @@ class SubsequentPermitCreateForm(forms.ModelForm):
 
 class EnquiryRemarksCreateForm(forms.ModelForm):
     class Meta:
-        model = EnquiryRemarks
+        model = EnquiryRemark
         fields = "__all__"
         exclude = ["created_by", "updated_by"]
         widgets = {

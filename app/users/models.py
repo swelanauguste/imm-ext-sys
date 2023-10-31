@@ -30,4 +30,4 @@ class Profile(models.Model):
     def __str__(self):
         if self.last_name and self.officer_id:
             return f"{self.last_name} {self.officer_id}"
-        return self.user.email
+        return self.user.email[:1]

@@ -11,22 +11,46 @@ class PortOfEntry(models.Model):
         ("SEA", "SEA"),
     )
     name = models.CharField(max_length=255)
+    code = models.CharField(max_length=255, blank=True, null=True)
     entry_type = models.CharField(
         max_length=3, choices=ENTRY_TYPE_CHOICES, default=ENTRY_TYPE_CHOICES[0][0]
     )
 
+    class Meta:
+        verbose_name_plural = "Ports of entry"
+
     def __str__(self):
-        return self.name
+        if not self.code:
+            return f"{self.name} - {self.entry_type}"
+        return f"{self.name} - {self.code} - {self.entry_type.upper()}"
 
 
 class MaritalStatus(models.Model):
     name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = "marital statuses"
 
     def __str__(self):
         return self.name
 
 
 class Enquiry(models.Model):
+    PURPOSE_CHOICES = [
+        ("Tourism", "Tourism"),
+        ("Business", "Business"),
+        ("Education", "Education"),
+        ("Medical Treatment", "Medical Treatment"),
+        ("Family Visit", "Family Visit"),
+        ("Other", "Other"),
+    ]
+
+    MEANS_OF_SUPPORT_CHOICES = [
+        ("Personal Savings", "Personal Savings"),
+        ("Sponsorship", "Sponsorship"),
+        ("Employment", "Employment"),
+        ("Other", "Other"),
+    ]
     img = models.ImageField(
         upload_to="enquiry_images", blank=True, null=True, verbose_name="photo"
     )
@@ -61,7 +85,9 @@ class Enquiry(models.Model):
     arrived_via = models.CharField(
         max_length=255, help_text="Straight flight/Last stop off"
     )
-    pov = models.CharField(max_length=255, verbose_name="purpose of visit")
+    pov = models.CharField(
+        max_length=255, verbose_name="purpose of visit", choices=PURPOSE_CHOICES
+    )
     host_id_no = models.CharField(
         max_length=255, verbose_name="host ID number", blank=True, null=True
     )
@@ -81,10 +107,10 @@ class Enquiry(models.Model):
         upload_to="work_permit_images/", blank=True, null=True
     )
     exemption = models.FileField(upload_to="exemption_images/", blank=True, null=True)
-    imm_offr = models.CharField(max_length=255, verbose_name="immigration officer")
-    time_granted = models.CharField(max_length=255)
+    imm_offr = models.ForeignKey(User, on_delete=models.PROTECT, related_name='officers', null=True, blank=True, verbose_name="immigration officer", default=1)
     time_granted_from = models.DateField(verbose_name="from")
     time_granted_to = models.DateField(verbose_name="to")
+    time_granted = models.CharField(max_length=255)
     tempt_res = models.BooleanField(default=False, verbose_name="temporary resident")
     perm_res = models.BooleanField(default=False, verbose_name="permanent resident")
     address_in_st_lucia = models.CharField(
@@ -94,7 +120,9 @@ class Enquiry(models.Model):
         max_length=255, verbose_name="Telephone in St Lucia"
     )
 
-    means_of_support = models.CharField(max_length=255)
+    means_of_support = models.CharField(
+        max_length=255, choices=MEANS_OF_SUPPORT_CHOICES
+    )
     ticket_no = models.CharField(max_length=255, verbose_name="ticket number")
     ticket = models.FileField(upload_to="tickets/", blank=True, null=True)
     validity = models.DateField(
@@ -119,6 +147,7 @@ class Enquiry(models.Model):
 
     class Meta:
         ordering = ["-arrival_date"]
+        verbose_name_plural = "enquiries"
 
     def get_enquiry_cost(self):
         cost = Decimal(self.time_granted) * Decimal(200 / 30)
@@ -128,10 +157,10 @@ class Enquiry(models.Model):
         return reverse("enquiry-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return f"{self.surname} {self.christian_names} - {self.ppn}"
+        return f"{self.surname.title()} {self.christian_names.title()} - {self.ppn.upper()}"
 
 
-class EnquiryRemarks(models.Model):
+class EnquiryRemark(models.Model):
     """
     This is the model for the remarks
     """
@@ -259,7 +288,7 @@ class SubsequentPermit(models.Model):
         return f"{self.enquiry.surname} {self.enquiry.christian_names} - {self.enquiry.ppn}"
 
 
-class SubsequentPermitRemarks(models.Model):
+class SubsequentPermitRemark(models.Model):
     """
     This is the model for the remarks
     """
@@ -352,6 +381,9 @@ class IndividualArrears(models.Model):
         null=True,
         blank=True,
     )
+
+    class Meta:
+        verbose_name_plural = "individual arrears"
 
     def get_arrears_total(self):
         return f"arrears total: "

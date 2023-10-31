@@ -9,430 +9,320 @@
 {% endblock head_title %}
 
 {% block content %}
-<div class="px-5">
-
+<div class="px-lg-5">
     {% if object.img %}
-    <div class="text-end">
-        <img src="{{object.img.url}}"
+    <div class="text-end mb-3">
+        <img class="border border-dark rounded-4"
+            src="{{object.img.url}}"
             width="150"
             alt="">
     </div>
     {% endif %}
-    <div class="d-flex align-items-start">
-        <div class="nav flex-column nav-pills me-5"
-            id="v-pills-tab"
-            role="tablist"
-            aria-orientation="vertical">
-            <a title="personal"
-                class="mb-lg-3  text-decoration-none text-dark text-end active"
-                id="v-pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-home"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-home"
-                aria-selected="true"><span
-                    class="material-symbols-outlined fs-1">
-                    person
-                </span>
-            </a>
-            <a title="travel"
-                class="mb-lg-3 text-decoration-none text-dark text-end"
-                id="v-pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-profile"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-profile"
-                aria-selected="false"><span
-                    class="material-symbols-outlined fs-1">
-                    flight
-                </span></a>
-            <a title="permits"
-                class="mb-lg-3  text-decoration-none text-dark text-end"
-                id="v-pills-permits-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-permits"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-permits"
-                aria-selected="false"><span
-                    class="material-symbols-outlined fs-1">
-                    file_copy
-                </span></a>
-            <a title="payments"
-                class="mb-lg-3  text-decoration-none text-dark text-end"
-                id="v-pills-payments-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-payments"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-payments"
-                aria-selected="false"><span
-                    class="material-symbols-outlined fs-1">
-                    payments
-                </span></a>
-        </div>
-        <div class="col-lg-10 px-5">
-            <div class="tab-content"
-                id="v-pills-tabContent">
-                <div class="tab-pane fade show active"
-                    id="v-pills-home"
-                    role="tabpanel"
-                    aria-labelledby="v-pills-home-tab"
-                    tabindex="0">
-                    <h1>Personal Details</h1>
-                    <hr>
-                    <div class="text-end">
-                        <a title="Add remarks" class="text-decoration-none text-dark"
-                            href="#"><span
-                                class="material-symbols-outlined fs-1">
-                                add_comment
-                            </span></a>
-                        <a title="Add payment" class="text-decoration-none text-dark mx-lg-2"
-                            href="#"><span
-                                class="material-symbols-outlined fs-1">
-                                attach_money
-                            </span></a>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Surname:
-                                </span><span>{{object.surname}}</span></p>
-                        </div>
-                        <div class="col">
-                            <p><span class="text-muted">Christian names:
-                                </span><span>{{object.christian_names}}</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Place of birth:
-                                </span><span>{{object.pob}}</span></p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Date of birth:
-                                </span><span>{{object.dob}}</span></p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Nationality:
-                                </span><span>{{object.nationality}}</span></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Passport number:
-                                </span><span><a data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal{{object.ppn}}"
-                                        href="#">{{object.ppn}}</a></span></p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Place issued:
-                                </span><span>{{object.pp_issue_place}}</span>
-                            </p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Date issued:
-                                </span><span>{{object.pp_issue_date}}</span>
-                            </p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Expiry Date:
-                                </span><span>{{object.pp_exp}}</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade"
-                    id="v-pills-profile"
-                    role="tabpanel"
-                    aria-labelledby="v-pills-profile-tab"
-                    tabindex="0">
-                    <h1>Travel Details</h1>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Arrival date:
-                                </span><span>{{object.arrival_date}}</span></p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Arrival port:
-                                </span><span>{{object.arrival_place}}</span>
-                            </p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Arrival from:
-                                </span><span>{{object.arrived_from}}</span></p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Arrival via:
-                                </span><span>{{object.arrived_via}}</span></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Host:
-                                </span><span><a data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal{{object.host_id_no}}"
-                                        href="#">{{object.host_id_no}}</a></span>
-                            </p>
-                        </div>
+    <main class="mb-5">
+        <div class="d-flex">
+            <div class="col-lg-1 m-0 p-0"
+                style="position:fixed; top:50; left:2%; height:fit-content;">
+                <a href="#person-info"><span
+                        class="material-symbols-outlined fs-1 text-dark">
+                        person
+                    </span></a><br><br>
+                <a href="#flight-info"><span
+                        class="material-symbols-outlined fs-1 text-dark">
+                        flight
+                    </span></a><br><br>
+                <a href="#enquiry-info"><span
+                        class="material-symbols-outlined fs-1 text-dark">
+                        task
+                    </span></a><br><br>
+                <a href="#payment-info"><span
+                        class="material-symbols-outlined fs-1 text-dark">
+                        payment
+                    </span></a><br><br>
+                <a href="{% url 'subsequent-permit-create' object.id %}"><span
+                        class="material-symbols-outlined fs-1 text-dark">
+                        add_task
+                    </span></a><br><br>
+            </div>
+            <div style="margin-left: 5rem;"
+                class="col border rounded-4 border-dark">
+                <section id="peronal-info">
+                    <div class="p-5">
+                        <h2>Perosnal Information</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.surname}}</span><br>
+                                <span class="text-muted">Surname:</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.christian_names}}
+                                </span><br>
+                                <span class="text-muted">Christian
+                                    names:</span>
 
-                        {% if object.hotel_res %}
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Reservations:
-                                </span><span><a data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal{{object.pk}}"
-                                        href="#">Reservations</a></span>
-                            </p>
-                        </div>
-                        {% endif %}
-                        <div class="col-lg-3">
-                            <p><span class="text-muted">Ticket number:
-                                </span><span><a data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal{{object.ticket_no}}"
-                                        href="#">{{object.ticket_no}}</a></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade"
-                        id="v-pills-messages"
-                        role="tabpanel"
-                        aria-labelledby="v-pills-messages-tab"
-                        tabindex="0">...</div>
-                    <div class="tab-pane fade"
-                        id="v-pills-settings"
-                        role="tabpanel"
-                        aria-labelledby="v-pills-settings-tab"
-                        tabindex="0">...</div>
-                </div>
-                <div class="tab-pane fade"
-                    id="v-pills-permits"
-                    role="tabpanel"
-                    aria-labelledby="v-pills-permits-tab"
-                    tabindex="0">
-                    <h1>Subsequent Permits</h1>
-                    <hr>
-                    <div class="text-end">
-                        <a title="Add permit"
-                            class="text-decoration-none text-dark"
-                            href="{% url 'subsequent-permit-create' object.pk %}"><span
-                                class="material-symbols-outlined fs-1">
-                                note_add
-                            </span></a>
-                    </div>
-                    <hr>
-                    <div class="table responsive">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Expires</th>
-                                    <th scope="col">Created</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for ob in object.subsequent_permits.all %}
-                                <tr>
-                                    <th scope="row">{{forloop.counter}}</th>
-                                    <td>{{ob.time_granted_to}}</td>
-                                    <td>{{ob.created_at}}</td>
-                                    <td><a href="{{ob.get_absolute_url}}"><span
-                                                class="material-symbols-outlined">
-                                                info
-                                            </span></a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.marital_status}}
+                                </span><br>
+                                <span class="text-muted">Marital status</span>
 
-                    </div>
-                </div>
-                <div class="tab-pane fade"
-                    id="v-pills-payments"
-                    role="tabpanel"
-                    aria-labelledby="v-pills-payments-tab"
-                    tabindex="0">
-                    <h1>Payments</h1>
-                    <hr>
-                    <div>
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Expires</th>
-                                    <th scope="col">Created</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for ob in object.subsequent_permits.all %}
-                                <tr>
-                                    <th scope="row">{{forloop.counter}}</th>
-                                    <td>{{ob.time_granted_to}}</td>
-                                    <td>{{ob.created_at}}</td>
-                                    <td><a href="#"><span
-                                                class="material-symbols-outlined">
-                                                info
-                                            </span></a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder"> {{object.pob}}
+                                </span><br>
+                                <span class="text-muted">Place of birth</span>
 
+                            </div>
+                            <div class="col">
+                                <div class="col">
+                                    <span class="fw-bolder"> {{object.dob}}
+                                    </span><br>
+
+                                    <span class="text-muted">Date of birth
+                                </div>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.nationality}}
+                                </span><br>
+                                <span class="text-muted">Nationality</span>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <span class="fw-bolder">
+                                    {{object.foreign_address}}
+                                    {% if foreign_address1 %} ,
+                                    {{foreign_address1}} {% endif %}
+                                </span><br>
+                                <span class="text-muted">Foreign
+                                    address:</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder"> {{object.phone}}
+                                </span><br>
+                                <span class="text-muted">Phone</span>
+
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder"> {{object.email}}
+                                </span><br>
+                                <span class="text-muted">email</span>
+
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder"> {{object.occu}}
+                                </span><br>
+                                <span class="text-muted">Occupation</span>
+
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder"> <a class="text-dark"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#passportModal"
+                                        href="#">{{object.ppn|upper}}</a>
+                                </span><br>
+                                <span class="text-muted">Passport
+                                    number</span>
+                            </div>
+                        </div>
+                        <!-- Passport Modal -->
+                        <div class="modal fade"
+                            id="passportModal"
+                            tabindex="-1"
+                            aria-labelledby="passportModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5"
+                                            id="passportModalLabel">
+                                            Passport
+                                            number:
+                                            {{object.ppn|upper}}</h1>
+                                        <button type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {% if object.passport %}
+                                        <div class="text-center">
+                                            <img class="border my-3"
+                                                src="{{object.passport.url}}"
+                                                style="width: fit-content;"
+                                                alt="">
+                                        </div>
+                                        <hr>
+                                        {% endif %}
+                                        <p class="text-center"><span
+                                                class="text-muted">i:</span>
+                                            {{object.pp_issue_place}},
+                                            {{object.pp_issue_date}},
+                                            <span class="text-muted">e:</span>
+                                            {{object.pp_exp}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </section>
+                <section id="flight-info">
+                    <div class=" p-5 mt-lg-3">
+                        <h2>Flight Information</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.arrival_date}},
+                                    {{object.arrival_place}}
+                                </span><br>
+                                <span class="text-muted">Arrival</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.arrived_from}}
+                                </span><br>
+                                <span class="text-muted">From</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder"> {{object.arrived_via}}
+                                </span><br>
+                                <span class="text-muted">Via</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder"> {{object.pov}},
+                                </span><br>
+                                <span class="text-muted">Purpose of
+                                    visit</span>
+                            </div>
+                            <div class="col">
+
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    <a class="text-dark"
+                                        href="#">{{object.host_id_no|upper|default:'N/A'}}</a>
+                                </span><br>
+                                <span class="text-muted">Host ID</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.hotel_res|default:'N/A'}}
+                                </span><br>
+                                <span class="text-muted">Reservations</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.rental_agreement|default:'N/A'}}
+                                </span><br>
+                                <span class="text-muted">Rental
+                                    Agreement</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.work_permit|default:'N/A'}}
+                                </span><br>
+                                <span class="text-muted">Work permit</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.exemption|default:'N/A'}}
+                                </span><br>
+                                <span class="text-muted">Exemption</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="enquiry-info">
+                    <div class=" p-5 mt-3">
+                        <h2>Enquiries</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.time_granted_from}}
+                                    to {{object.time_granted_to}}
+                                </span><br>
+                                <span class="text-muted">From and to</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.time_granted}} days
+                                </span><br>
+                                <span class="text-muted">Time granted</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.tempt_res|yesno:"Yes,No,maybe" }}
+                                </span><br>
+                                <span class="text-muted">Temp resident</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.tempt_res|yesno:"Yes,No,maybe" }}
+                                </span><br>
+                                <span class="text-muted">Permanent
+                                    resident</span>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.address_in_st_lucia}}
+                                </span><br>
+                                <span class="text-muted">Address in Saint
+                                    Lucia</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.tel_in_st_lucia}}
+                                </span><br>
+                                <span class="text-muted">Tel</span>
+                            </div>
+                            <div class="col">
+                                <span class="fw-bolder">
+                                    {{object.means_of_support}}
+                                </span><br>
+                                <span class="text-muted">Means of
+                                    support</span>
+                            </div>
+                            <div class="col"
+                                id="ticket">
+                                <span class="fw-bolder">
+                                    <a class="text-dark"
+                                        href="#ticket">{{object.ticket_no|upper}}</a>
+                                </span><br>
+                                <span class="text-muted">Ticket</span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <hr>
+                            <div class="col text-end small">
+                                <span class="fw-bolder">
+                                    {{object.imm_offr.email|default:'N/A'}}
+                                </span><br>
+                                <span class="text-muted">Immigration
+                                    officer</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
-    </div>
+
+    </main>
+</div>
 
 
 
-    <!-- Modal 1 -->
-    <div class="modal fade"
-        id="exampleModal{{object.host_id_no}}"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5"
-                        id="exampleModalLabel">{{object.host_id_no}}</h1>
-                    <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
 
-                    {% if object.host_id %}
-                    <div class="d-flex justify-content-center">
-                        <img src="{{object.host_id.url}}"
-                            width="500"
-                            alt="">
-                    </div>
-                    {% endif %}
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 2 -->
-    <div class="modal fade"
-        id="exampleModal{{object.pk}}"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5"
-                        id="exampleModalLabel">Reservations</h1>
-                    <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    {% if object.img %}
-                    <div class="d-flex justify-content-center">
-                        <img src="{{object.hotel_res.url}}"
-                            width="500"
-                            alt="">
-
-                    </div>
-                    {% endif %}
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal 3 -->
-    <div class="modal fade"
-        id="exampleModal{{object.ppn}}"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5"
-                        id="exampleModalLabel">{{object.ppn}}</h1>
-                    <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    {% if object.img %}
-                    <div class="d-flex justify-content-center">
-                        <img class="me-lg-2"
-                            src="{{object.passport.url}}"
-                            width="500"
-                            alt="">
-                        <img src="{{object.img.url}}"
-                            width="500"
-                            alt="">
-                    </div>
-                    {% endif %}
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal 4 -->
-    <div class="modal fade"
-        id="exampleModal{{object.ticket_no}}"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5"
-                        id="exampleModalLabel">{{object.ticket_no}}</h1>
-                    <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {% if object.ticket %}
-                    <div class="d-flex justify-content-center">
-                        <img class="me-lg-2"
-                            src="{{object.ticket.url}}"
-                            width="500"
-                            alt="">
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="modal-footer">
-                    <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endblock content %}
+{% endblock content %}

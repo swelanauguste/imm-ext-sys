@@ -19,11 +19,11 @@ from .forms import (
 from .models import (
     Enquiry,
     EnquiryPayment,
-    EnquiryRemarks,
+    EnquiryRemark,
     IndividualArrears,
     SubsequentPermit,
     SubsequentPermitPayment,
-    SubsequentPermitRemarks,
+    SubsequentPermitRemark,
 )
 
 
@@ -100,7 +100,7 @@ class SubsequentPermitUpdateView(LoginRequiredMixin, SuccessMessageMixin, Update
 
 
 class EnquiryRemarksCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = EnquiryRemarks
+    model = EnquiryRemark
     form_class = EnquiryRemarksCreateForm
 
 
@@ -125,7 +125,7 @@ class EnquiryListView(LoginRequiredMixin, ListView):
                 | Q(pp_issue_place__icontains=query)
                 | Q(arrival_place__name__icontains=query)
                 | Q(pov__icontains=query)
-                | Q(imm_offr__icontains=query)
+                | Q(imm_offr__email__icontains=query)
                 | Q(pov__icontains=query)
                 | Q(time_granted__icontains=query)
                 | Q(address_in_st_lucia__icontains=query)
